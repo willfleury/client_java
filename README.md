@@ -110,6 +110,25 @@ Please note that tests on Travis may be unreliable due to the absence of
 installed Maven artifacts.  Ensure that the current snapshot version is
 deployed to Sonatype OSS Repository.
 
+### Testing the simple spawning example
+
+If you just want to verify that the client library can be built and run in a
+standalone JVM process, you can use the `examples/simple` module.  This example
+spawns a Jetty HTTP server and exposes a few sample metrics that can be scraped
+locally.  To run it:
+
+1. Build the shaded jar:
+
+        $ mvn -pl examples/simple clean package
+
+2. Launch the example process (this spawns Jetty on port `1234` by default):
+
+        $ java -jar examples/simple/target/simple-0.0.9-SNAPSHOT-jar-with-dependencies.jar
+
+You should see log output indicating that the sample application started.  You
+can then `curl http://localhost:1234/metrics` in another terminal to confirm
+that the process is up and exposing metrics.
+
 ###  Deployment
 These steps below are only useful if you are in a release engineering capacity
 and want to publicize these changes for external users.  You will also need to
